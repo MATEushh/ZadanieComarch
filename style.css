@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #12FFE4, #C801FF);
+    overflow: hidden;
+
+}
+
+.container.active {
+
+    transform: translate(-50%, -50%);
+    width: 500px;
+    padding: 40px 0;
+    text-align: center;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px;
+
+}
+
+.container {
+    position: absolute;
+    transform: translate(200%, 200%);
+}
+
+.container h1 {
+    text-transform: uppercase;
+    margin: 25px 0;
+}
+
+.container div {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 80px;
+    font-size: 18px;
+}
+
+button {
+    margin-top: 25px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 4px;
+    border: 3px solid black;
+    background-color: white;
+    padding: 10px 40px;
+    transition: .4s;
+}
+
+button:hover {
+    background-color: #0ec7c7;
+}
+
+.container p {
+
+    font-weight: 600;
+}
+
+.container p.optional {
+    position: absolute;
+    font-weight: 300;
+    font-size: 13px;
+}
+
+.container p.optional.phone {
+    left: 50%;
+    top: 58%;
+}
+
+.container p.optional.mail {
+    left: 50%;
+    top: 71%;
+}
+
+
+.container input {
+    width: 50%;
+    border: 2px solid black;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 3px 7px;
+}
+
+.container select {
+    width: 50%;
+    border: 2px solid black;
+    padding: 3px 7px;
+    border-radius: 4px;
+}
+
+.container input.error {
+    border: 3px solid red;
+}
+
+.container input.correct {
+    border: 3px solid green;
+}
+
+.timer {
+    position: absolute;
+    bottom: 10%;
+    font-size: 16px;
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-weight: 600;
+    text-align: center;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px;
+
+}
+
+footer {
+    position: absolute;
+    bottom: 1%;
+    right: 2%;
+    font-weight: 900;
+    text-shadow: white 2px 2px 6px;
+}
+
+div.container.third>div {
+    font-weight: 900;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
