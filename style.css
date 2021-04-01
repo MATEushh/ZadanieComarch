@@ -92,11 +92,19 @@ button:hover {
     padding: 3px 7px;
 }
 
-.container select {
+.container .select {
     width: 50%;
     border: 2px solid black;
     padding: 3px 7px;
     border-radius: 4px;
+}
+
+.container .select.error {
+    border: 3px solid red;
+}
+
+.container .select.correct {
+    border: 3px solid green;
 }
 
 .container input.error {

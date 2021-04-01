@@ -1,9 +1,10 @@
-const form=document.querySelector('form');
+const form=document.querySelector('.form1');
+const form2=document.querySelector('.form2');
 const containerFirst=document.querySelector('.first');
 const containerSecond=document.querySelector('.second');
 const containerThird=document.querySelector('.third');
 const firstname=document.querySelector('.firstname');
-const lastname=document.querySelector('.lastname');
+const surename=document.querySelector('.surename');
 const phone=document.querySelector('.phone');
 const email=document.querySelector('.email');
 const pesel=document.querySelector('.pesel');
@@ -16,76 +17,99 @@ const input=document.querySelector('input');
 
 
 //FirstStep
-const emailPattern= /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+const emailPattern=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const phonePattern= /^\d{9}$/;
 const namesPattern=/[a-zA-Z]/i;
 
-form.addEventListener('submit',nextPage=(e)=>{
+form.addEventListener('submit',nextPage =(e) => {
     e.preventDefault();
+    let errors=[];
     
-    if(firstname.value != "" && firstname.value.match(namesPattern)){
-        firstname.classList.add('correct');
-         }else{
-         firstname.classList.add('error');
-        return false;
-         }
+    if(firstname.value === ""){ 
+      errors.push({ el: firstname});
+    }else if( !firstname.value.match(namesPattern)){
+        errors.push({ el: firstname});
+    }else{
+      firstname.classList.add('correct');
+    }
+    if(surename.value === ""){
+      errors.push({ el: surename});
+    }else if( !surename.value.match(namesPattern)){
+      errors.push({el: surename});
+    }else{
+      surename.classList.add('correct');
+    }
+    if( phone.value!="" && !phone.value.match(phonePattern)){
+      errors.push({el: phone});
+    }else{
+      phone.classList.add('correct');
+    }
+    if(email.value!="" && !email.value.match(emailPattern) ){
+      errors.push({ el: email});
+    }else{
+      email.classList.add('correct');
+    }
+    // if(select.options !="dowodu" || select.options !="paszportu"){
+    //   errors.push({ el: select});
+    // }else{
+    //   select.classList.add('correct');
+    // }
 
-    if(lastname.value != "" && lastname.value.match(namesPattern)){
-            lastname.classList.add('correct');
-            
-        }else{
-            lastname.classList.add('error');
-            return  false;
-        }
 
-    if(phone.value.match(phonePattern) || (phone.value==="")){
-        phone.classList.add('correct');
+    if(errors.length > 0){
+      showErrors(errors);
+      return false;
     }
-    else{
-        phone.classList.add('error');
-       return false;
+
+    function showErrors(errors){
+      errors.map((err)=>{
+        err.el.classList.add('error');
+      });
     }
-    if(email.value.match(emailPattern) ||(email.value==="")){
-        email.classList.add('correct');
-       
-    }
-    else{
-        email.classList.add('error');
-        return false;
-  }
+
+      containerFirst.classList.remove('active');
+      containerSecond.classList.add('active');
+              document.querySelector('.showName').textContent=`Imię: ${firstname.value}`
+              document.querySelector('.ShowSurename').textContent=`Nazwisko: ${surename.value}`
+              document.querySelector('.ShowPhone').textContent=`Telefon: ${phone.value}`
+              document.querySelector('.ShowEmail').textContent=`Email: ${email.value}`
+   
+      return true;
+
     
-  
-   containerFirst.classList.remove('active');
-   containerSecond.classList.add('active');
-           document.querySelector('.showName').textContent=`Imię: ${firstname.value}`
-           document.querySelector('.ShowLastName').textContent=`Nazwisko: ${lastname.value}`
-           document.querySelector('.ShowPhone').textContent=`Telefon: ${phone.value}`
-           document.querySelector('.ShowEmail').textContent=`Email: ${email.value}`
-
-   return true;
+     
 })
 
 
 //SecondStep
 
-form.addEventListener('submit',nexttPage=(e)=>{
+
+
+form2.addEventListener('submit',nextPage=(e)=>{
     e.preventDefault();
 
-    ParsePesel(pesel.value)
-    if( pesel.value !=""){
-        pesel.classList.add('correct');
-        }else{
-          pesel.classList.add('error');
-            return false;
-        }
-      
-       if(Idnumber.value !=""){
-           Idnumber.classList.add('correct');
-          }else{
-           Idnumber.classList.add('error');
-           return false;
-            }
+    let errors=[];
 
+    if(pesel.value === ""){ 
+      errors.push({ el: pesel});
+    }else if(ParsePesel(pesel.value)){
+        errors.push({ el: pesel});
+    }else{
+      pesel.classList.add('correct');
+    }
+  
+   
+    if(Idnumber.value === ""){
+      errors.push({el: Idnumber});
+    }else{
+    Idnumber.classList.add('correct');
+    }
+
+    if(errors.length > 0){
+      showErrors(errors);
+      return false;
+    }
+  
        containerSecond.classList.remove('active');
        containerThird.classList.add('active');
        clearInterval(tiktak);
@@ -93,10 +117,18 @@ form.addEventListener('submit',nexttPage=(e)=>{
        document.querySelector('.showPesel').textContent=`Pesel: ${pesel.value}`
        document.querySelector('.showDateOfBirth').textContent=`Data urodzenia: ${dateOfBirth.value}`
        document.querySelector('.showIdDocument').textContent=`Numer ${type.textContent}: ${Idnumber.value}`
-       document.querySelector('.showTime').textContent=`Czas wypełniania formularza:${4-minutes}:${60-seconds}`;
+      //  document.querySelector('.showTime').textContent=`Czas wypełniania formularza:${5-minutes}:${60-seconds}`;
        return true;
 
+       function showErrors(errors){
+        errors.map((err)=>{
+          err.el.classList.add('error');
+        });
+      }
+
 })
+
+
 
 select.addEventListener('change', ()=>{
    type.textContent=` ${select.options[select.selectedIndex].value}`;
@@ -104,27 +136,35 @@ select.addEventListener('change', ()=>{
 })
 
 //timer
-    let minutes = 4;
-    let seconds = 60;
-    window.onload = clock = ()=> {
-        
-        seconds--;
-      
-      timer.textContent =`Czas na wypełnienie formularza ${minutes}:${seconds}`;
-     
-      if (minutes === 0 && seconds === 0) {
-        alert("Przerwanie wypełniania formularza z powodu przekroczenia czasu oczekiwania");
-        location.reload();
-      }
-      if (seconds === 00) {
-        minutes --;
-        seconds = 60;
-       }
-      
-    };
-    const tiktak=setInterval(clock, 1000)
 
+
+    let startingMinutes = 5;
+    let time = startingMinutes*60;
+    let seconds;
+    const tiktak=setInterval(countdown, 1000);
+
+    function countdown() {
+     
+     const minutes=Math.floor(time/60);
+     seconds=time % 60;
+
+     seconds=seconds <10 ? "0"+seconds :seconds;
+     if (time === 0) {
+      alert("Przerwanie wypełniania formularza z powodu przekroczenia czasu oczekiwania");
+      location.reload();
+    }
+        
+       timer.textContent =`Czas na wypełnienie formularza ${minutes}:${seconds}`;
+       document.querySelector('.showTime').textContent=`Czas wypełniania formularza:${4-minutes}:${60-seconds}`;
+      time--;
+     
+       
+    }
+
+      
   
+  
+    let day,month,year;
     //pesel
     function ParsePesel(id)
     {
@@ -154,29 +194,31 @@ select.addEventListener('change', ()=>{
         return;
     
       //Policz rok z uwzględnieniem XIX, XX, XXI i XXII wieku
-      var rok = 1900+aInt[0]*10+aInt[1];
+       year = 1900+aInt[0]*10+aInt[1];
       if (aInt[2]>=2 && aInt[2]<8)
-        rok+=Math.floor(aInt[2]/2)*100;
+        year+=Math.floor(aInt[2]/2)*100;
       if (aInt[2]>=8)
-        rok-=100;
+        year-=100;
     
-      var miesiac = (aInt[2]%2)*10+aInt[3];
-      var dzien = aInt[4]*10+aInt[5];
+       month = (aInt[2]%2)*10+aInt[3];
+       day = aInt[4]*10+aInt[5];
     
       //Sprawdź poprawność daty urodzenia
-      if (SetError(!checkDate(dzien,miesiac,rok)))
+      if (SetError(!checkDate(day,month,year)))
         return;
       var plec = (aInt[9]%2==1)?"M":"K";
     
       //Uzupełnij pola wchodzące w skład numeru PESEL
-      if(dzien < 10){
-          dzien="0"+dzien;
+      if(day < 10){
+          day="0"+day;
       }
-      if(miesiac < 10){
-        miesiac="0"+miesiac;
+      if(month < 10){
+        month="0"+month;
       }
-      dateOfBirth.value=`${dzien}-${miesiac}-${rok}`;
+      dateOfBirth.value=`${day}-${month}-${year}`;
+
     }
+   
     function SetError(c){
        
       return c;
@@ -188,5 +230,5 @@ select.addEventListener('change', ()=>{
             dt.getMonth()==m-1 &&
             dt.getFullYear()==y;
     }
-    
+
     

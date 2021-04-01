@@ -9,17 +9,19 @@
 </head>
 <body>
 
-    <form class="form">
+    <form class="form1">
         <div class="container first active">
             <h1>Wprowadź dane:</h1>
             <div><p>Imię</p><input class="firstname" type="text" maxlength="50" placeholder="Jan"></div>
-            <div><p>Nazwisko</p><input class="lastname" type="text" maxlength="60" placeholder="Nowak" ></div>
+            <div><p>Nazwisko</p><input class="surename" type="text" maxlength="60" placeholder="Nowak" ></div>
             <div><p>Telefon</p><input class="phone" type="tel" maxlength="9" placeholder="000 000 000" ></div>
             <p class="optional phone">*Pole opcjonalne</p>
             <div><p>Email</p><input class="email" type="text" placeholder="jannowak@gmail.com"></div>
             <p class="optional mail">*Pole opcjonalne</p>
-            <button type="submit" >Dalej</button>
+            <button type="submit">Dalej</button>
         </div>
+    </form>
+    <form class="form2">
         <div class="container second">
             <h1>Wprowadź dane:</h1>
             <div><p>PESEL</p><input class="pesel" type="number" maxlength="11" placeholder="98030145921" ></div>
@@ -30,12 +32,12 @@
                 <option value="paszportu">paszport</option>
                 </select></div>
             <div><p>Numer<span class="type"> dokumentu</span></p><input class="Idnumber" type="number" maxlength="15" placeholder="256923" disabled></div>
-            <button  type="submit" >Dalej</button>
+            <button type="submit">Dalej</button>
             </div>
             <div class="container third">
                 <h1>Podsumowanie:</h1>
                 <div class="showName"></div>
-                <div class="ShowLastName"></div>
+                <div class="ShowSurename"></div>
                 <div class="ShowPhone"></div>
                 <div class="ShowEmail"></div>
                 <div class="showPesel"></div>
@@ -44,6 +46,7 @@
                  <div class="showTime"></div>
         </div>
     </form>
+       
     <div class="timer"></div>
     <footer>Autor: Mateusz Klepacz</footer>
     
