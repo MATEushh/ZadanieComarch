@@ -17,7 +17,7 @@ const input=document.querySelector('input');
 
 
 //FirstStep
-const emailPattern=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const emailPattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phonePattern= /^\d{9}$/;
 const namesPattern=/[a-zA-Z]/i;
 
@@ -103,7 +103,7 @@ form2.addEventListener('submit',nextPage=(e)=>{
    
     if(Idnumber.value === ""){
       errors.push({el: Idnumber});
-    }else if(Idnumber.value.length < 6){
+    }else if(Idnumber.value.length > 15 || Idnumber.value.length < 6){
       errors.push({el: Idnumber});
     }else{
     Idnumber.classList.add('correct');
