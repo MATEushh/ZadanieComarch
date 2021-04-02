@@ -94,12 +94,16 @@ form2.addEventListener('submit',nextPage=(e)=>{
       errors.push({ el: pesel});
     }else if(ParsePesel(pesel.value)){
         errors.push({ el: pesel});
-    }else{
+    }else if(pesel.value.length !=11){
+      errors.push({ el: pesel});
+  }else{
       pesel.classList.add('correct');
     }
   
    
     if(Idnumber.value === ""){
+      errors.push({el: Idnumber});
+    }else if(Idnumber.value.length < 6){
       errors.push({el: Idnumber});
     }else{
     Idnumber.classList.add('correct');
@@ -117,7 +121,6 @@ form2.addEventListener('submit',nextPage=(e)=>{
        document.querySelector('.showPesel').textContent=`Pesel: ${pesel.value}`
        document.querySelector('.showDateOfBirth').textContent=`Data urodzenia: ${dateOfBirth.value}`
        document.querySelector('.showIdDocument').textContent=`Numer ${type.textContent}: ${Idnumber.value}`
-      //  document.querySelector('.showTime').textContent=`Czas wypełniania formularza:${5-minutes}:${60-seconds}`;
        return true;
 
        function showErrors(errors){
@@ -163,16 +166,14 @@ select.addEventListener('change', ()=>{
 
       
   
-  
     let day,month,year;
+   
     //pesel
     function ParsePesel(id)
     {
+      
       const s = pesel.value;
-      //Sprawdź długość, musi być 11 znaków
-      if (SetError(s.length != 11))
-        return;
-    
+
       //Sprawdź, czy wszystkie znaki to cyfry
       var aInt = new Array();
       for (i=0;i<11; i++)
